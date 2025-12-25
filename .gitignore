@@ -1,0 +1,14 @@
+# FPGA/ASIC Tool junk
+*.log
+*.jou
+*.pb
+*.bit
+*.str
+*.rpt
+work/
+xsim.dir/
+.Xil/
+
+# Python junk
+__pycache__/
+*.pyc
