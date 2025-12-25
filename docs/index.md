@@ -6,6 +6,9 @@ And keep these phrases close to your heart.
 >  Patience, and relentless effort until everthing moves frictionless.
 >  The story you tell yourself becomes the reality you live in.
 
+## Important links
+https://github.com/arunjeevaraj/Learning_journal
+
 
 ## 🚀 Current Focus
 - [ ] **Python** (Fixed point implementation of DSP)

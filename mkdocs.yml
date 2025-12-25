@@ -31,18 +31,27 @@ theme:
 nav:
   - Home: index.md
   - Books: books/books.md
+  - DSP:
+      - FFT vs DFT Complexity: DSP/algorithms/dft_vs_fft.md
   - Python DSP:
       - Fixed-Point Quantization: python/fixed_point_dsp/quantization_basics.md
   - Today I Learned: til/index.md
 
 # Extensions for Math (LaTeX) and Code highlighting
 markdown_extensions:
+  - admonition
+  - pymdownx.details
   - pymdownx.arithmatex
   - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.mermaid_format
 
 # Required for MathJax (DSP formulas) to render correctly
 extra_javascript:
