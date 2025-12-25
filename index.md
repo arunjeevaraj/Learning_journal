@@ -1,10 +1,11 @@
 # 📚 My Learning Journal
+Welcome to my personal learning space! This repository serves as a digital garden where I document my journey, track my progress, and store notes on everything I learn.
 I would like to refer the ever important verse, "Every Journey of thousand miles starts with a single step."
 And keep these phrases close to your heart.
-- Enjoy each step, be aware and intentional. Rushing yields no worth.
-- Patience, and relentless effort until everthing moves frictionless.
-- The story you tell yourself becomes the reality you live in.
-Welcome to my personal learning space! This repository serves as a digital garden where I document my journey, track my progress, and store notes on everything I learn.
+>  Enjoy each step, be aware and intentional. Rushing yields no worth.
+>  Patience, and relentless effort until everthing moves frictionless.
+>  The story you tell yourself becomes the reality you live in.
+
 
 ## 🚀 Current Focus
 - [ ] **Python** (Fixed point implementation of DSP)

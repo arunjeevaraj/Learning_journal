@@ -1,0 +1,8 @@
+site_name: Arun's Learning Journal
+theme:
+  name: material  # A very popular, clean theme
+nav:
+  - Home: index.md
+  - Books: books/books.md
+  - Python DSP: 
+      - Quantization: python/fixed_point_dsp/quantization_basics.md
