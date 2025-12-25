@@ -37,7 +37,7 @@ nav:
 
 # Extensions for Math (LaTeX) and Code highlighting
 markdown_extensions:
-  - arithmatex
+  - pymdownx.arithmatex
   - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
