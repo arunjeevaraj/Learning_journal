@@ -23,7 +23,7 @@ $$Fixed = \text{round}(Float \times 2^n)$$
 Below are the results of my Python simulation comparing a high-precision sine wave against its quantized versions.
 
 ### Error Distribution
-[Insert your plot here: e.g., `![Error Histogram](../../assets/figures/DSP/truncation_vs_rounding.png)`]
+[Insert your plot here: e.g., ![Rounding vs Truncation](/assets/figures/DSP/truncation_vs_rounding.png)
 
 
 
