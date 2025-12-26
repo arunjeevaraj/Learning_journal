@@ -36,7 +36,7 @@ Below are the results of my Python simulation comparing a high-precision sine wa
 ## 🐍 Python Implementation
 
 This script demonstrates how to quantize a sine wave. Compare rounding versus truncation.
-
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 from numfi import numfi
