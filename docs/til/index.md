@@ -6,12 +6,13 @@ A digital log of small snippets and engineering realizations.
 ## 📅 December 2025
 
 ### Dec 26: Reference Models & Git
-**Tags:** #DSP #Python #Git
+**Tags:** #DSP #Python #Git #mkdoc
 
 ???+ abstract "Key Realizations"
     * **FFT Span Logic:** Stage $S$ uses a stride of $2^{S-1}$.
     * **Git Safety:** `git rm --cached` is the best way to fix a messy repo.
-
+    * **Mkdoc :**  It is good to have a local Mkdoc development env. Pip install mkdoc & then mkdoc serve.
+    * **Comparing Fixed point data and real number :** Using Numfi library to generate fixed point data. 
 [Read full FFT Reference Model →](../python/fixed_point_dsp/fft_reference_model.md)
 
 ### Dec 25: Project Kickoff
@@ -50,3 +51,4 @@ echo "dsp/" >> .gitignore
 # 3. Commit the change
 git add .gitignore
 git commit -m "chore: stop tracking virtual environment"
+```

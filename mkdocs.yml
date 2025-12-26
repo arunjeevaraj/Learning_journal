@@ -38,7 +38,7 @@ nav:
       - FFT vs DFT Complexity: DSP/algorithms/dft_vs_fft.md
   - Python DSP:
       - Fixed-Point Quantization: python/fixed_point_dsp/quantization_basics.md
-      - FFT reference model in python: python/fixed_point_dsp/fft_reference_mode.md
+      - FFT reference model in python: python/fixed_point_dsp/fft_reference_model.md
   - Today I Learned: til/index.md
 
 # Extensions for Math (LaTeX) and Code highlighting
@@ -54,7 +54,7 @@ markdown_extensions:
 
 # Required for MathJax (DSP formulas) to render correctly
 extra_javascript:
-  - javascripts/mathjax.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js

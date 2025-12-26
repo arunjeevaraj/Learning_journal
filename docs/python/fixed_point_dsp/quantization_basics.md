@@ -1,30 +1,33 @@
 # Fixed-Point Quantization
 
-## 🎯 Objective
-To understand how to convert floating-point signals into fixed-point representations suitable for FPGA/ASIC implementation, and to analyze the resulting quantization noise.
+## 1. 🎯 Objective
+To understand how to convert floating-point signals into fixed-point representations suitable for FPGA/ASIC implementation, and to analyze the resulting quantization noise. As a beginning and to familiarize with the tools lets focus on Rounding and Truncation.
 
-## 💡 Concept: The $Q_{m.n}$ Format
+
+## 2. 💡Background
+### 2.1  Concept: The $Q_{m.n}$ Format
 In hardware, we represent numbers using a fixed number of bits:
 - **Total Bits ($W$):** The word length.
 - **Integer Bits ($m$):** Bits for the integer part (including sign bit).
 - **Fractional Bits ($n$):** Bits for the precision.
 
 The formula to convert a float to fixed-point is:
+
 $$Fixed = \text{round}(Float \times 2^n)$$
 
-## 1. Theoretical Comparison
+### 2.2 Theoretical Comparison
 
 | Method | Hardware Cost | Statistical Bias |
 | :--- | :--- | :--- |
 | **Truncation** | Zero (just drop LSBs) | **High** (Always shifts the mean negative) |
 | **Rounding** | Moderate (requires an adder) | **Low** (Mean error stays near zero) |
 
-## 2. Visualizing the Error
+## 3. Visualizing the Error
 
-Below are the results of my Python simulation comparing a high-precision sine wave against its quantized versions.
+Below are the results of my Python simulation comparing a high-precision sine wave against its quantized versions. Consider Q(s=1, w=8, f=2), and an input of Sine wave is generated and then converted to Fixed point data by using rounding and then truncation. The error distribution is shown in the Fig 3.1
 
 ### Error Distribution
-![Rounding vs Truncation](../../assets/figures/DSP/truncation_vs_rounding.png)
+![Fig 3.1 Rounding vs Truncation](../../assets/figures/DSP/truncation_vs_rounding.png)
 
 
 
@@ -38,7 +41,6 @@ Below are the results of my Python simulation comparing a high-precision sine wa
 
 This script demonstrates how to quantize a sine wave. Compare rounding versus truncation.
 
-```markdown
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -58,6 +60,7 @@ y_floor = numfi(x, s=1, w=8, f=2, RoundingMethod='Floor')
 y_round = numfi(x, s=1, w=8, f=2, RoundingMethod='Nearest')
 
 # 3. Calculate Errors
+# np.broadcast_to is used to make sure that the y_floor.double is the same size as x.
 y_floor_vals = np.broadcast_to(y_floor.double, x.shape)
 y_round_vals = np.broadcast_to(y_round.double, x.shape)
 
@@ -95,3 +98,4 @@ plt.grid(True)
 
 plt.tight_layout()
 plt.show()
+```

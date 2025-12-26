@@ -8,7 +8,7 @@
 work/
 xsim.dir/
 .Xil/
-
+mkdoc/
 # Python junk
 __pycache__/
 *.pyc
