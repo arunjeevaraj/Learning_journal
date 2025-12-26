@@ -38,6 +38,7 @@ Below are the results of my Python simulation comparing a high-precision sine wa
 
 This script demonstrates how to quantize a sine wave. Compare rounding versus truncation.
 
+```markdown
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -68,15 +69,17 @@ plt.figure(figsize=(12, 8))
 
 plt.subplot(3, 1, 1)
 plt.plot(t, err_floor, label='Floor Error')
-plt.axhline(np.mean(err_floor), color='red', linestyle='--', label=f'Mean: {np.mean(err_floor):.4f}')
-plt.title(f"Floor Error (Bias is visible)")
+plt.axhline(np.mean(err_floor), color='red', linestyle='--',
+            label=f'Mean: {np.mean(err_floor):.4f}')
+plt.title("Floor Error (Bias is visible)")
 plt.legend(loc='upper right')
 plt.grid(True)
 
 plt.subplot(3, 1, 2)
 plt.plot(t, err_round, label='Round Error', color='orange')
-plt.axhline(np.mean(err_round), color='red', linestyle='--', label=f'Mean: {np.mean(err_round):.4f}')
-plt.title(f"Round Error (Centered on Zero)")
+plt.axhline(np.mean(err_round), color='red', linestyle='--',
+            label=f'Mean: {np.mean(err_round):.4f}')
+plt.title("Round Error (Centered on Zero)")
 plt.legend(loc='upper right')
 plt.grid(True)
 
