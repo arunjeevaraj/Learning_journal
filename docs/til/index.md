@@ -20,7 +20,7 @@ A digital log of small snippets and engineering realizations.
 
 ??? note "Initialization"
     * MkDocs environment established.
-    * Focus shifted to ASIC parameterizable architectures.
+    * Dived into FFT and made the first post about it.
 
 ---
 
