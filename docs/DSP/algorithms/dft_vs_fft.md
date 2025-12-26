@@ -5,7 +5,8 @@ This is one algorithm, which took forever for me to understand and grasp and eve
 I knew about the maths and how to do it, I knew about the spectrum analysis and to make use of the data. But conceptually to digest it further, it took me more time. The orthogonal basis vectors and vector space analysis,
 opened up a different perspective. It gave me the idea about how the Maths actually work to create the magic behind the curtain. 
 
-Through my first career, and beyond. I had to make use of it during my time working with 4G LTE layer 1 and 2. THe OFDMA frames decoding needed the iFFT and then ultimately to feed it to perform cellsearch.
+### Through my first career, and beyond.
+ I had to make use of it during my time working with 4G LTE layer 1 and 2. THe OFDMA frames decoding needed the iFFT and then ultimately to feed it to perform cellsearch.
 Here optimization on the FFT was not prioritized, but the fast implementation and system level integration were more pivotal to see the cellsearch working against the Matlab model in an actual FPGA hardware.
 Fun ways to learn about lots of topics, looking back.
 Then it came back to me as a task, this time to  implement a parameterizable, scalable and adaptable fixed point implementation targetting different signal processing chains in an ASIC.
@@ -68,13 +69,8 @@ To process an 8-point signal, we decompose it until we reach 2-point butterflies
 
 The 8 Point FFT, as it tickles down the stages. You could see the sequence gets a different order, with indices 000, 100, 010, 110, 001, 101, 011, 111. If you look at it a few times, you would see that it is just bit reversed at the indices.
 
-graph LR
-    A[Input Signal] --> B[Bit Reversal]
-    B --> C[Stage 1: 2-pt FFT]
-    C --> D[Stage 2: 4-pt FFT]
-    D --> E[Stage 3: 8-pt FFT]
-    E --> F[Frequency Output]
-    
+
+
 ### The Butterfly Operation
 By exploiting the symmetry of the twiddle factors ($e^{-j...}$), we reuse intermediate results. This reduces the complexity to:
 $$\text{Complexity} = O(N \log_2 N)$$

@@ -26,6 +26,9 @@ theme:
     - navigation.expand
     - search.highlight
     - content.code.copy # Adds a 'copy' button to your code snippets
+    - navigation.top        # Adds a "Back to top" button
+    - toc.follow           # TOC on the right highlights as you scroll
+    - toc.integrate        # (Optional) Integrates TOC into the left sidebar if you prefer
 
 # This is where you define your sidebar structure
 nav:
@@ -35,6 +38,7 @@ nav:
       - FFT vs DFT Complexity: DSP/algorithms/dft_vs_fft.md
   - Python DSP:
       - Fixed-Point Quantization: python/fixed_point_dsp/quantization_basics.md
+      - FFT reference model in python: python/fixed_point_dsp/fft_reference_mode.md
   - Today I Learned: til/index.md
 
 # Extensions for Math (LaTeX) and Code highlighting
