@@ -6,8 +6,13 @@ A digital log of small snippets and engineering realizations.
 ## 📅 December 2025
 
 ### Dec 26: Reference Models & Git
-**Tags:** #DSP #Python #Git #mkdoc
+**Tags:** #LinuxKernel #DSP #Python 
+???+ abstract "Key Realizations"
 
+### Dec 26: Reference Models & Git
+**Tags:** #DSP #Python #Git #mkdoc
+    * **Linux Kernel and Intel wifi driver issues:** HAd to turn the pcie_aspm=off + iwlwifi power_save=0$.
+    * **FFT twiddle factor generation:** HOw to generate the complete sine and consine table from a quadrant of just cosine table.$.
 ???+ abstract "Key Realizations"
     * **FFT Span Logic:** Stage $S$ uses a stride of $2^{S-1}$.
     * **Git Safety:** `git rm --cached` is the best way to fix a messy repo.

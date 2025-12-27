@@ -15,6 +15,8 @@ We will use a **bottom-up approach** here. Getting the basic building blocks bui
 * **FFT Stages and Data Feeding**
     The butterfly "spans its wings" based on the FFT stage. FFT relies on splitting an $N$-point FFT to $N/2$-point FFT of even and odd indices and making use of the twiddle factor symmetry. This is basically controlling the data flow to the butterfly and controlling the stages.
 
+* **FFT twiddle factor LUT**
+    The LUT would be used to generate the twiddle factor which is needed for each stage of the FFT.
 ---
 
 ## 1. The Butterfly "Hardware" Block
@@ -223,4 +225,110 @@ Stg 3  | (0, 4)         | 000    100    | 0       1       | ✅ OK
 Stg 3  | (1, 5)         | 001    101    | 1       0       | ✅ OK
 Stg 3  | (2, 6)         | 010    110    | 1       0       | ✅ OK
 Stg 3  | (3, 7)         | 011    111    | 0       1       | ✅ OK
+```
+
+
+
+## 3. Twiddle Factor Architecture (ROM Optimization)
+
+In an ASIC implementation, calculating sines and cosines on the fly is computationally expensive, and storing a full table for every angle $0 \dots 2\pi$ is wasteful. 
+
+We use a "Hardware-Friendly" approach relying on **Quarter-Wave Symmetry** to reduce storage by 75% and **Bit-Shifting** to reuse a single Master Table across all FFT stages.
+
+### 3.1 Quarter-Wave Optimization
+We only store the **Cosine** values for the first quadrant ($0^\circ$ to $90^\circ$).
+* **Storage Range:** $0 \le \theta \le \pi/2$ (Indices $0 \dots N/4$).
+* **Real Part (Cos):** Direct lookup from the table.
+* **Imaginary Part (Sin):** Derived using the trigonometric identity:
+  $$\sin(\theta) = \cos(90^\circ - \theta)$$
+
+
+
+Since we store Cosine, we can find the Sine of any angle $k$ by reading the table backwards from the $90^\circ$ mark ($N/4 - k$).
+
+### 3.2 Quadrant Mapping Logic (The Mirror)
+Standard FFTs require angles up to $180^\circ$ (Quadrant 2). Since our table stops at $90^\circ$, we use geometric mirroring.
+
+* **Mirroring:** An angle in Q2 (e.g., $135^\circ$) uses the same table value as its mirror in Q1 ($45^\circ$), but with a sign change for the Cosine.
+* **The Formula:** `Index_Q1 = (N/2) - Index_Q2`
+
+| Quadrant | Angle Range | Lookup Index | Real Sign (Cos) | Imag Sign ($-j\sin$) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Q1** | $0 \dots 90^\circ$ | $k$ | Positive ($+$) | Negative ($-$) |
+| **Q2** | $90 \dots 180^\circ$ | $N/2 - k$ | Negative ($-$) | Negative ($-$) |
+
+*> **Note:** The Imaginary sign is negative in both quadrants because the FFT definition is $W = \cos(\theta) - j\sin(\theta)$. Since $\sin(\theta)$ is positive in both Q1 and Q2, the term $-j\sin(\theta)$ remains negative.*
+
+### 3.3 Hardware Address Decoding (Bit-Shifting)
+Earlier FFT stages need "lower resolution" angles. Instead of creating separate tables for Stage 1, Stage 2, etc., we use the Master Table (Stage $M$) for everything.
+
+We simply **left-shift** the address to "skip" intermediate values.
+
+* **Formula:** `ROM_Addr = k << (Max_Stages - Current_Stage)`
+
+| Stage | Butterfly Index $k$ | Shift | Effective Angle |
+| :--- | :--- | :--- | :--- |
+| **3 (Full)** | 0, 1, 2, 3 | 0 | $0, 1, 2, 3$ ($0^\circ, 45^\circ \dots$) |
+| **2 (Half)** | 0, 1 | 1 | $0, 2$ ($0^\circ, 90^\circ$) |
+| **1 (Low)** | 0 | 2 | $0$ ($0^\circ$) |
+
+
+
+### 3.4 Python Implementation: `TwiddleROM`
+This class models the hardware ROM, the bit-shifting AGU, and the Quadrant Mapping logic.
+
+```python
+import math
+
+class TwiddleROM:
+    """
+    Hardware-Optimized Twiddle Factor Generator.
+    - Stores only Quarter-Wave (0 to 90 degrees).
+    - Uses Quadrant Mirroring for angles > 90 degrees.
+    """
+    def __init__(self, N):
+        self.N = N
+        self.quarter_size = N // 4
+        
+        # 1. Generate the Quarter-Wave LUT (Cosine only)
+        # Size: (N/4) + 1 entries.
+        self.lut = []
+        print(f"--- Generating ROM (Size: {self.quarter_size + 1}) ---")
+        for i in range(self.quarter_size + 1):
+            angle = 2 * math.pi * i / N
+            val = math.cos(angle)
+            self.lut.append(val)
+
+    def get_twiddle(self, stage, k):
+        """
+        Retrieves W = e^(-j 2pi k / 2^stage) using Bit-Shifting & Mirroring.
+        """
+        # 1. Bit-Shift Strategy: Map current stage 'k' to Master ROM index
+        total_stages = int(math.log2(self.N))
+        shift = total_stages - stage
+        master_idx = k << shift
+        
+        # 2. Quadrant Logic
+        if master_idx > self.quarter_size:
+            # Quadrant 2: Mirroring Logic
+            # Map 135 deg -> 45 deg via (180 - 135)
+            lut_idx = (self.N // 2) - master_idx
+            sign_re = -1  # Cosine is Negative in Q2
+            sign_im = -1  # Sine is Positive, so -j*sin is Negative
+        else:
+            # Quadrant 1: Direct Mapping
+            lut_idx = master_idx
+            sign_re = 1   # Cosine is Positive in Q1
+            sign_im = -1  # -j*sin is Negative
+            
+        # 3. Fetch Real Part (Cosine)
+        re = self.lut[lut_idx] * sign_re
+        
+        # 4. Fetch Imag Part (Sine derived from Cosine)
+        # sin(theta) = cos(90 - theta) -> Table[Max - Index]
+        im_lut_idx = self.quarter_size - lut_idx
+        im = self.lut[im_lut_idx] * sign_im
+        
+        return re, im
+
 ```

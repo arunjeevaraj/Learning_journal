@@ -88,7 +88,9 @@ $$\text{Complexity} = O(N \log_2 N)$$
 ## 3. Python Demonstration
 Below is a script to visualize the massive performance gap as $N$ increases.
 
+
 ```python
+
 import numpy as np
 import time
 import matplotlib.pyplot as plt
@@ -119,4 +121,5 @@ for N in sizes:
     fft_times.append(time.time() - start)
 
 print(f"For N=1024, FFT is {dft_times[-1]/fft_times[-1]:.2f}x faster!")
+
 ```

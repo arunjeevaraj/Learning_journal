@@ -41,22 +41,19 @@ nav:
       - FFT reference model in python: python/fixed_point_dsp/fft_reference_model.md
   - Today I Learned: til/index.md
 
-# Extensions for Math (LaTeX) and Code highlighting
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true  # This is critical for Material theme
   - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
 
-# Required for MathJax (DSP formulas) to render correctly
 extra_javascript:
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js
+  - javascripts/mathjax.js  # 1. Load your config first
   - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js # 2. Load the library
   - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
