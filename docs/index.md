@@ -18,6 +18,7 @@ https://github.com/arunjeevaraj/Learning_journal
 - [ ] **Scripting** (TCL, Bash and other automation scripts)
 - [ ] **FPGA** (Design sources and implementation)
 - [ ] **ASIC** (Design sources and implementation)
+- [ ] **Courses** (Courses I am currently learning from Coursera and Udemy.) [Courses_list](./Courses/Kalman_filter/index.md)
 - [ ] **[Books](./books/books.md)** (Reading progress and references)
 ---
 

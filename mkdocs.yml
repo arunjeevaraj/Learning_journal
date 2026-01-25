@@ -34,6 +34,7 @@ theme:
 nav:
   - Home: index.md
   - Books: books/books.md
+  - Courses: Courses/Kalman_filter/index.md
   - DSP:
       - FFT vs DFT Complexity: DSP/algorithms/dft_vs_fft.md
   - Python DSP:
