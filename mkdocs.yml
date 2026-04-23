@@ -37,11 +37,12 @@ nav:
   - Courses: Courses/Kalman_filter/index.md
   - DSP:
       - FFT vs DFT Complexity: DSP/algorithms/dft_vs_fft.md
-  - Python DSP:
-      - Fixed-Point Quantization: python/fixed_point_dsp/quantization_basics.md
-      - FFT reference model in python: python/fixed_point_dsp/fft_reference_model.md
-  - Today I Learned: til/index.md
-
+  - Python DSP: python/fixed_point_dsp/
+#      - Overview: python/fixed_point_dsp/index.md
+#      - python/fixed_point_dsp/*.md
+  - Today I Learned: til/
+#      - Overview: til/index.md
+#      - til/*.md # This tells MkDocs to include everything in the TIL folder automatically
 markdown_extensions:
   - admonition
   - pymdownx.details
