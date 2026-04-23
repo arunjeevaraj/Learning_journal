@@ -73,7 +73,7 @@ case "$1" in
         read -p "Commit message: " msg
         msg=${msg:-"update journal $(date +'%Y-%m-%d')"}
         git commit -m "$msg"
-        git push origin main
+        git push origin master
         ;;
 
     *)
